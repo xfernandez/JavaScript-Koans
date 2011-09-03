@@ -8,14 +8,14 @@ test("defining functions directly", function() {
         result = "b";
     };	
     changeResult();
-    equals(result, __, 'what is the value of result?');
+    equals(result, "b", 'what is the value of result?');
 });
 
 test("assigning functions to variables", function() {
     var triple = function(input) {
         return input * 3;
     };
-    equals(triple(4), __, 'what is triple 4?');		
+    equals(triple(4), 12, 'what is triple 4?');		
 });
 
 test("self invoking functions", function() {		
@@ -24,13 +24,13 @@ test("self invoking functions", function() {
     // self invoking functions are used to provide scoping and to alias variables
     (function(pv) {
         var secretValue = "password";
-        equals(pv, __, 'what is the value of pv?');
-        equals(typeof(secretValue), "__", "is secret value available in this context?");
-        equals(typeof(pv), "__", "is public value available in this context?");
+        equals(pv, "shared", 'what is the value of pv?');
+        equals(typeof(secretValue), "string", "is secret value available in this context?");
+        equals(typeof(pv), "string", "is public value available in this context?");
     })(publicValue);
 
-    equals(typeof(secretValue), "__", "is secret value available in this context?");
-    equals(typeof(publicValue), "__", "is public value available in this context?");
+    equals(typeof(secretValue), "undefined", "is secret value available in this context?");
+    equals(typeof(publicValue), "string", "is public value available in this context?");
 });
 
 test("arguments array", function() {
@@ -38,8 +38,9 @@ test("arguments array", function() {
         var total = 0;
         for(var i = 0; i < arguments.length; i++) {
             // complete the implementation of this method so that it returns the sum of its arguments
+            total += arguments[i];
         }
-        // __
+        return total;
     };
 
     equals(add(1,2,3,4,5), 15, "add 1,2,3,4,5");
@@ -57,7 +58,7 @@ test("using call to invoke function",function(){
     //function, and the arguments to be sent to the function,multiple arguments are separated by commas.
     var result = invokee.call("I am this!", "Where did it come from?");
         
-    equals(result,__,"what will the value of invokee's this be?");
+    equals(result,"I am this!Where did it come from?","what will the value of invokee's this be?");
 });
 
 test("using apply to invoke function",function(){
@@ -70,6 +71,6 @@ test("using apply to invoke function",function(){
     //function and and array of arguments to be passed into the called function.
     var result = invokee.apply("I am this!", ["I am arg1","I am arg2"]);
         
-    equals(result,__,"what will the value of invokee's this be?");
+    equals(result,"I am this!I am arg1I am arg2","what will the value of invokee's this be?");
 });
 
